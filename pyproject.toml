@@ -1,0 +1,26 @@
+[project]
+name = "boomerang_cash"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "Lucas Limeira", email = "lucasalveslm@gmail.com"},
+]
+dependencies = ["fastapi>=0.115.6", "uvicorn>=0.34.0"]
+requires-python = "==3.11.*"
+readme = "README.md"
+license = {text = "MIT"}
+
+
+[tool.pdm]
+distribution = false
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.8.3",
+]
