@@ -7,6 +7,12 @@ from app.settings import get_settings
 
 
 class Container(containers.DeclarativeContainer):
+    """
+    A dependency injection container for the application.
+    This container sets up and provides various resources and services used
+    throughout the application, including database connections and repositories.
+    """
+
     settings = get_settings()
 
     wiring_config = containers.WiringConfiguration(modules=[".endpoints"])
