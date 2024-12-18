@@ -3,8 +3,8 @@ from pydantic_br import CPFDigits
 
 
 class Reseller(BaseModel):
-    """
-    Represents a reseller in the system.
+    """Reseller model representing a reseller in the system.
+
     Attributes:
         first_name (str): The first name of the reseller.
         middle_name (str): The middle name of the reseller.
