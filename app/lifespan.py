@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
+from app.containers import setup_dependency_injection
 from app.database import setup_database, shutdown_database
 
 
@@ -14,6 +15,7 @@ async def app_lifespan(app: FastAPI):
     """
 
     await setup_database(app)
+    setup_dependency_injection(app)
 
     yield
 

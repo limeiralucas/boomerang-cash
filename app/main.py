@@ -2,6 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 
 from app.lifespan import app_lifespan
+from app.endpoints import router
 
 
 def create_app() -> FastAPI:
@@ -11,7 +12,10 @@ def create_app() -> FastAPI:
         FastAPI: An instance of the FastAPI application.
     """
 
-    return FastAPI(lifespan=app_lifespan)
+    app = FastAPI(lifespan=app_lifespan)
+    app.include_router(router)
+
+    return app
 
 
 app = create_app()

@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     DATABASE_NAME: str = "boomerang_cash"
     MONGO_CONN_STR: str
 
-    model_config = SettingsConfigDict(env_file=".env")
+    model_config = SettingsConfigDict(env_prefix="APP_", env_file=".env")
 
 
 @lru_cache
