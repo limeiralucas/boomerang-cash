@@ -15,9 +15,9 @@ class OrderPort(ABC):
     """
 
     @abstractmethod
-    def create_order(self, order: Order) -> Order:
+    async def create_order(self, order: Order) -> Order:
         pass
 
     @abstractmethod
-    def list_orders(self) -> list[Order]:
+    async def list_orders(self) -> list[Order]:
         pass

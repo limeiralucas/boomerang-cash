@@ -15,9 +15,9 @@ class ResellerPort(ABC):
     """
 
     @abstractmethod
-    def create_reseller(self, reseller: Reseller) -> Reseller:
+    async def create_reseller(self, reseller: Reseller) -> Reseller:
         pass
 
     @abstractmethod
-    def get_reseller_by_email(self, email: str) -> Reseller:
+    async def get_reseller_by_email(self, email: str) -> Reseller:
         pass
