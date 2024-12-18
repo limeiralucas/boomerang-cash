@@ -1,6 +1,6 @@
 from enum import Enum
 from datetime import datetime
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from pydantic_br import CPFDigits
 
 
@@ -28,3 +28,17 @@ class Order(BaseModel):
     timestamp: datetime
     reseller_cpf: CPFDigits
     status: OrderStatus = OrderStatus.VALIDATING
+
+    model_config = ConfigDict(
+        json_schema_extra={
+            "examples": [
+                {
+                    "code": "ORD123456",
+                    "value": 1000,
+                    "timestamp": "2022-01-01T12:00:00",
+                    "reseller_cpf": "00000000000",
+                    "status": "VALIDATING",
+                }
+            ]
+        }
+    )

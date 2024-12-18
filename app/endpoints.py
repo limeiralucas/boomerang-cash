@@ -6,12 +6,21 @@ from app.domain.models.order import Order
 from app.domain.ports.order import OrderPort
 
 
-router = APIRouter()
+router = APIRouter(tags=["orders"])
 
 
 @router.get("/orders")
 @inject
 async def get_orders(
-    order_repo: OrderPort = Depends(Provide[Container.order_repo]),
+    order_repository: OrderPort = Depends(Provide[Container.order_repository]),
 ) -> list[Order]:
-    return await order_repo.list_orders()
+    return await order_repository.list_orders()
+
+
+@router.post("/orders")
+@inject
+async def create_order(
+    order: Order,
+    order_repository: OrderPort = Depends(Provide[Container.order_repository]),
+) -> Order:
+    return await order_repository.create_order(order)
