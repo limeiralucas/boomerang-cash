@@ -1,6 +1,8 @@
 import uvicorn
 from fastapi import FastAPI
 
+from app.lifespan import app_lifespan
+
 
 def create_app() -> FastAPI:
     """
@@ -9,7 +11,7 @@ def create_app() -> FastAPI:
         FastAPI: An instance of the FastAPI application.
     """
 
-    return FastAPI()
+    return FastAPI(lifespan=app_lifespan)
 
 
 app = create_app()

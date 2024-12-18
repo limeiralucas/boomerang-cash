@@ -8,10 +8,12 @@ class Settings(BaseSettings):
 
     Attributes:
         APP_NAME (str): The name of the application. Default is "Boomerang Cash".
+        DATABASE_NAME (str): The MongoDB database name. Default is "boomerang_cash".
         MONGO_CONN_STR (str): The connection string for the MongoDB database.
     """
 
     APP_NAME: str = "Boomerang Cash"
+    DATABASE_NAME: str = "boomerang_cash"
     MONGO_CONN_STR: str
 
     model_config = SettingsConfigDict(env_file=".env")
