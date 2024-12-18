@@ -1,9 +1,10 @@
 from beanie import Document
+from app.adapters.repositories.mixins import AutoTimestampMixin
 from app.domain.models.order import Order
 from app.domain.ports.order import OrderPort
 
 
-class OrderDocument(Document, Order):
+class OrderDocument(AutoTimestampMixin, Document, Order):
     class Settings:
         name = "orders"
 

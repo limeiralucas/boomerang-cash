@@ -1,7 +1,8 @@
 from enum import Enum
-from datetime import datetime
 from pydantic import BaseModel, ConfigDict
 from pydantic_br import CPFDigits
+
+from app.domain.models.mixins import TimestampMixin
 
 
 class OrderStatus(Enum):
@@ -11,13 +12,12 @@ class OrderStatus(Enum):
     APPROVED = "APPROVED"
 
 
-class Order(BaseModel):
+class Order(TimestampMixin, BaseModel):
     """Order model representing an order in the system.
 
     Attributes:
         code (str): The unique code identifying the order.
         value (int): The monetary value of the order.
-        timestamp (datetime): The date and time when the order was created.
         reseller_cpf (CPFDigits): The CPF (Cadastro de Pessoas Físicas)
             of the reseller associated with the order.
         status (OrderStatus): The status of the order.
@@ -25,7 +25,6 @@ class Order(BaseModel):
 
     code: str
     value: int
-    timestamp: datetime
     reseller_cpf: CPFDigits
     status: OrderStatus = OrderStatus.VALIDATING
 
@@ -35,9 +34,10 @@ class Order(BaseModel):
                 {
                     "code": "ORD123456",
                     "value": 1000,
-                    "timestamp": "2022-01-01T12:00:00",
                     "reseller_cpf": "00000000000",
                     "status": "VALIDATING",
+                    "created_at": "2022-01-01T12:00:00",
+                    "updated_at": "2022-01-05T12:00:00",
                 }
             ]
         }
