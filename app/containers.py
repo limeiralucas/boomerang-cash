@@ -17,7 +17,7 @@ class Container(containers.DeclarativeContainer):
 
     wiring_config = containers.WiringConfiguration(
         modules=[
-            "app.adapters.entrypoints.rest.v1.order",
+            "app.adapters.entrypoints.rest.v1.order.routes",
         ]
     )
 
