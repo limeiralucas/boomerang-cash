@@ -1,8 +1,6 @@
 from fastapi import FastAPI
-from beanie import init_beanie
 from motor.motor_asyncio import AsyncIOMotorClient
 
-from app.adapters.repositories.order import OrderDocument
 from app.settings import get_settings
 
 
@@ -14,13 +12,6 @@ async def setup_database(app: FastAPI):
     """
     settings = get_settings()
     app.db_client = AsyncIOMotorClient(settings.MONGO_CONN_STR)
-
-    await init_beanie(
-        app.db_client[settings.DATABASE_NAME],
-        document_models=[
-            OrderDocument,
-        ],
-    )
 
 
 def shutdown_database(app: FastAPI):
