@@ -6,6 +6,19 @@ from app.domain.ports.order import OrderPort
 
 
 class OrderRepository(OrderPort):
+    """
+    Repository class for managing orders in the database.
+
+    Attributes:
+        db (AsyncIOMotorDatabase): The MongoDB database instance.
+
+    Methods:
+        create_order(order: Order) -> Order:
+            Creates a new order in the database.
+        list_orders() -> list[Order]:
+            Retrieves a list of all orders from the database.
+    """
+
     def __init__(self, db: AsyncIOMotorDatabase):
         self.db = db
 
