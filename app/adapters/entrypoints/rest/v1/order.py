@@ -5,7 +5,6 @@ from app.containers import Container
 from app.domain.models.order import Order
 from app.domain.ports.order import OrderPort
 
-
 router = APIRouter(tags=["orders"])
 
 

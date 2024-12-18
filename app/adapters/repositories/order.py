@@ -27,4 +27,4 @@ class OrderRepository(OrderPort):
         )
 
     async def list_orders(self) -> list[Order]:
-        return await OrderDocument.all()
+        return await OrderDocument.all().to_list()

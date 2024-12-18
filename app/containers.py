@@ -15,7 +15,11 @@ class Container(containers.DeclarativeContainer):
 
     settings = get_settings()
 
-    wiring_config = containers.WiringConfiguration(modules=[".endpoints"])
+    wiring_config = containers.WiringConfiguration(
+        modules=[
+            "app.adapters.entrypoints.rest.v1.order",
+        ]
+    )
 
     db = providers.Resource(
         setup_mongo_db,

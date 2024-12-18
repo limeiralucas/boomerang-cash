@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 
 from app.lifespan import app_lifespan
-from app.endpoints import router
+from app.adapters.entrypoints.rest.v1 import router
 
 
 def create_app() -> FastAPI:
