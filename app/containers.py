@@ -23,10 +23,7 @@ class Container(containers.DeclarativeContainer):
         db_name=settings.DATABASE_NAME,
     )
 
-    order_repo = providers.Factory(
-        OrderRepository,
-        db=db,
-    )
+    order_repository = providers.Factory(OrderRepository)
 
 
 async def setup_dependency_injection(app: FastAPI):

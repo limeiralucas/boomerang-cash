@@ -1,31 +1,30 @@
-from typing import override
-from motor.motor_asyncio import AsyncIOMotorDatabase
-
+from beanie import Document
 from app.domain.models.order import Order
 from app.domain.ports.order import OrderPort
 
 
+class OrderDocument(Document, Order):
+    class Settings:
+        name = "orders"
+
+
 class OrderRepository(OrderPort):
+    """Repository for managing Order entities in the database.
+    This class implements the OrderPort interface and provides methods for creating
+    and retrieving orders from the database using OrderDocument model.
+
+    Methods
+    -------
+    create_order(order: Order) -> Order
+        Creates a new order in the database.
+    list_orders() -> list[Order]
+        Retrieves all orders from the database.
     """
-    Repository class for managing orders in the database.
 
-    Attributes:
-        db (AsyncIOMotorDatabase): The MongoDB database instance.
-
-    Methods:
-        create_order(order: Order) -> Order:
-            Creates a new order in the database.
-        list_orders() -> list[Order]:
-            Retrieves a list of all orders from the database.
-    """
-
-    def __init__(self, db: AsyncIOMotorDatabase):
-        self.db = db
-
-    @override
     async def create_order(self, order: Order) -> Order:
-        return await self.db.orders.insert_one(order.model_dump())
+        return await OrderDocument.insert(
+            OrderDocument.model_validate(order.model_dump())
+        )
 
-    @override
     async def list_orders(self) -> list[Order]:
-        return await self.db.orders.find().to_list()
+        return await OrderDocument.all()
