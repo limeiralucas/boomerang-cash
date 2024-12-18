@@ -5,6 +5,14 @@ from app.domain.models.order import Order
 
 
 class OrderCreate(Order):
+    """
+    OrderCreate represents the payload required for Order creation through the API.
+    Attributes:
+        created_at (ExcludedField): The timestamp when the order was created.
+        updated_at (ExcludedField): The timestamp when the order was last updated.
+    Example:
+    """
+
     created_at: ExcludedField
     updated_at: ExcludedField
 

@@ -31,6 +31,13 @@ class Container(containers.DeclarativeContainer):
 
 
 async def setup_dependency_injection(app: FastAPI):
+    """
+    Sets up dependency injection for the FastAPI application.
+
+    Args:
+        app (FastAPI): The FastAPI application instance.
+    """
+
     container = Container()
 
     await container.init_resources()
@@ -38,4 +45,10 @@ async def setup_dependency_injection(app: FastAPI):
 
 
 async def shutdown_dependency_injection(app: FastAPI):
+    """
+    Teardown of dependency injection resources of FastAPI application.
+
+    Args:
+        app (FastAPI): The FastAPI application instance.
+    """
     await app.container.shutdown_resources()
