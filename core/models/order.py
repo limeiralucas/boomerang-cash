@@ -26,6 +26,8 @@ class Order(TimestampMixin, BaseModel):
     code: str
     value: int
     reseller_cpf: CPFDigits
+    cashback_percentage: int = 0
+    cashback_value: int = 0
     status: OrderStatus = OrderStatus.VALIDATING
 
     model_config = ConfigDict(
