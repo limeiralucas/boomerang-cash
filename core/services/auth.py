@@ -38,3 +38,17 @@ class AuthService(IAuthService):
         data["exp"] = expire
 
         return jwt.encode(data, secret_key, algorithm="HS256")
+
+    @override
+    def verify_token(self, token: str, secret_key: str) -> bool:
+        is_token_valid = False
+
+        try:
+            payload = jwt.decode(token, secret_key, algorithms=["HS256"])
+        except Exception:
+            payload = None
+
+        if payload:
+            is_token_valid = True
+
+        return is_token_valid
