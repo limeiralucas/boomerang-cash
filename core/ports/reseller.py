@@ -39,3 +39,7 @@ class ResellerService(ABC):
     @abstractmethod
     async def get_reseller_by_email(self, email: str) -> Reseller:
         raise NotImplementedError
+
+
+class ResellerAlreadyExists(Exception):
+    pass

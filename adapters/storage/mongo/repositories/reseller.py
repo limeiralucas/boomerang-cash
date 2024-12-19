@@ -1,11 +1,21 @@
-from beanie import Document
+from typing import Annotated
+from beanie import Document, Indexed
+from pymongo.errors import DuplicateKeyError
 from passlib.context import CryptContext
+from pydantic import EmailStr
+from pydantic_br import CPFDigits
 
 from core.models.reseller import Reseller
-from core.ports.reseller import ResellerRepository as IResellerRepository
+from core.ports.reseller import (
+    ResellerAlreadyExists,
+    ResellerRepository as IResellerRepository,
+)
 
 
 class ResellerDocument(Document, Reseller):
+    email: Annotated[EmailStr, Indexed(unique=True)]
+    cpf: Annotated[CPFDigits, Indexed(unique=True)]
+
     class Settings:
         name = "resellers"
 
@@ -23,7 +33,10 @@ class ResellerRepository(IResellerRepository):
         reseller_obj = ResellerDocument.from_entity(reseller)
         reseller_obj.password = ResellerRepository.hash_password(reseller_obj.password)
 
-        return await ResellerDocument.insert_one(reseller_obj)
+        try:
+            return await ResellerDocument.insert_one(reseller_obj)
+        except DuplicateKeyError as ex:
+            raise ResellerAlreadyExists() from ex
 
     async def get_reseller_by_email(self, email: str) -> Reseller:
         return await ResellerDocument.find_one({"email": email})
