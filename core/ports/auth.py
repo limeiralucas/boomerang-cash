@@ -1,0 +1,17 @@
+from abc import ABC
+from datetime import timedelta
+
+from core.models.auth import TokenData
+
+
+class AuthService(ABC):
+    def hash_password(self, password: str) -> str:
+        raise NotImplementedError
+
+    async def authenticate_user(self, login: str, password: str) -> bool:
+        raise NotImplementedError
+
+    def create_access_token(
+        self, data: TokenData, secret_key: str, expire_delta: timedelta
+    ) -> str:
+        raise NotImplementedError

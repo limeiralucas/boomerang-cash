@@ -5,6 +5,7 @@ from adapters.settings import get_settings
 
 from adapters.storage.mongo.repositories.order import OrderRepository
 from adapters.storage.mongo.repositories.reseller import ResellerRepository
+from core.services.auth import AuthService
 from core.services.order import OrderService
 from core.services.reseller import ResellerService
 
@@ -37,4 +38,8 @@ class Container(containers.DeclarativeContainer):
     reseller_repository = providers.Factory(ResellerRepository)
     reseller_service = providers.Factory(
         ResellerService, reseller_repository=reseller_repository
+    )
+
+    auth_service = providers.Factory(
+        AuthService, reseller_repository=reseller_repository
     )
