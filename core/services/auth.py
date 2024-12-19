@@ -6,7 +6,7 @@ from passlib.context import CryptContext
 from core.models.auth import TokenData
 
 from core.ports.reseller import ResellerRepository
-from core.ports.auth import AuthService as IAuthService
+from core.ports.auth import AuthService as IAuthService, InvalidCredentialsException
 
 
 class AuthService(IAuthService):
@@ -19,10 +19,11 @@ class AuthService(IAuthService):
         return self.pwd_context.hash(password)
 
     @override
-    async def authenticate_user(self, login: str, password: str) -> bool:
-        reseller = await self.reseller_repository.get_reseller_by_email(login)
+    async def authenticate_user(self, password: str, hashed_password: str) -> bool:
+        is_valid = self.pwd_context.verify(password, hashed_password)
 
-        return self.pwd_context.verify(password, reseller.password)
+        if not is_valid:
+            raise InvalidCredentialsException()
 
     @override
     def create_access_token(
@@ -36,4 +37,4 @@ class AuthService(IAuthService):
         expire = datetime.now(timezone.utc) + expires_delta
         data["exp"] = expire
 
-        return jwt.encode(data.model_dump(), secret_key, algorithm="HS256")
+        return jwt.encode(data, secret_key, algorithm="HS256")

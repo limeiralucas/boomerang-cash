@@ -15,6 +15,8 @@ class Settings(BaseSettings):
     APP_NAME: str = "Boomerang Cash"
     DATABASE_NAME: str = "boomerang_cash"
     MONGO_CONN_STR: str
+    SECRET_KEY: str
+    TOKEN_EXPIRATION_SECONDS: int
 
     model_config = SettingsConfigDict(env_prefix="APP_", env_file=".env")
 

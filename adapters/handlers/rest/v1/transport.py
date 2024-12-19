@@ -1,4 +1,4 @@
-from pydantic import ConfigDict
+from pydantic import BaseModel, ConfigDict
 from core.models.reseller import Reseller
 from core.models.utils import ExcludedField
 from core.models.order import Order
@@ -40,3 +40,12 @@ class ResellerCreate(Reseller):
             ]
         }
     )
+
+
+class LoginRequest(BaseModel):
+    email: str
+    password: str
+
+
+class LoginResponse(BaseModel):
+    access_token: str
