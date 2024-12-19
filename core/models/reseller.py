@@ -1,8 +1,10 @@
 from pydantic import BaseModel, EmailStr
 from pydantic_br import CPFDigits
 
+from core.models.mixins import TimestampMixin
 
-class Reseller(BaseModel):
+
+class Reseller(TimestampMixin, BaseModel):
     """Reseller model representing a reseller in the system.
 
     Attributes:

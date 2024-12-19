@@ -27,6 +27,7 @@ async def setup_mongo_db(
         db,
         document_models=[
             "adapters.storage.mongo.repositories.order.OrderDocument",
+            "adapters.storage.mongo.repositories.reseller.ResellerDocument",
         ],
     )
 
