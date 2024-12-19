@@ -7,7 +7,8 @@ class OrderDocument(Document, Order):
     class Settings:
         name = "orders"
 
-    def from_entity(self, entity: Order):
+    @staticmethod
+    def from_entity(entity: Order):
         return OrderDocument.model_validate(entity.model_dump())
 
 
