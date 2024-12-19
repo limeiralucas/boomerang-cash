@@ -5,7 +5,7 @@ from dependency_injector.wiring import Provide, inject
 
 from adapters.settings.containers import Container
 from adapters.settings.settings import get_settings
-from core.ports.auth import AuthService
+from core.ports.auth import AuthService, InvalidCredentialsException
 
 
 class JWTAuth(HTTPBearer):
@@ -20,7 +20,13 @@ class JWTAuth(HTTPBearer):
 
         if credentials:
             settings = get_settings()
-            if auth_service.verify_token(credentials.credentials, settings.SECRET_KEY):
-                return credentials
+            try:
+                token_data = auth_service.verify_token(
+                    credentials.credentials, settings.SECRET_KEY
+                )
+
+                return token_data
+            except InvalidCredentialsException:
+                raise HTTPException(status_code=401, detail="Invalid credentials")
 
         raise HTTPException(status_code=401, detail="Invalid credentials")

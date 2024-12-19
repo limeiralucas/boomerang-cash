@@ -40,15 +40,10 @@ class AuthService(IAuthService):
         return jwt.encode(data, secret_key, algorithm="HS256")
 
     @override
-    def verify_token(self, token: str, secret_key: str) -> bool:
-        is_token_valid = False
-
+    def verify_token(self, token: str, secret_key: str) -> TokenData:
         try:
             payload = jwt.decode(token, secret_key, algorithms=["HS256"])
+
+            return TokenData(**payload)
         except Exception:
-            payload = None
-
-        if payload:
-            is_token_valid = True
-
-        return is_token_valid
+            raise InvalidCredentialsException()

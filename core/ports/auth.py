@@ -20,5 +20,5 @@ class AuthService(ABC):
     ) -> str:
         raise NotImplementedError
 
-    def verify_token(self, token: str, secret_key: str) -> bool:
+    def verify_token(self, token: str, secret_key: str) -> TokenData:
         raise NotImplementedError
