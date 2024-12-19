@@ -3,6 +3,7 @@ from fastapi import APIRouter, Depends, status
 from fastapi.responses import JSONResponse
 from dependency_injector.wiring import Provide, inject
 
+from adapters.handlers.rest.security import JWTAuth
 from adapters.handlers.rest.v1.transport import LoginRequest, LoginResponse
 from adapters.settings.containers import Container
 from adapters.settings.settings import get_settings
@@ -49,3 +50,8 @@ async def login(
             status_code=status.HTTP_401_UNAUTHORIZED,
             content={"message": "Invalid credentials"},
         )
+
+
+@router.get("/validate")
+async def validate(_=Depends(JWTAuth())):
+    return {"message": "ok"}

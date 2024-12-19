@@ -13,6 +13,7 @@ WIRED_MODULES = [
     "adapters.handlers.rest.v1.order",
     "adapters.handlers.rest.v1.reseller",
     "adapters.handlers.rest.v1.auth",
+    "adapters.handlers.rest.security",
 ]
 
 
