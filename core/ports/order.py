@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
 
-from app.domain.models.order import Order
+from core.models.order import Order
 
 
-class OrderPort(ABC):
+class OrderRepository(ABC):
     """Abstract base class that defines the interface for order-related operations."""
 
     @abstractmethod
@@ -26,3 +26,13 @@ class OrderPort(ABC):
             list[Order]: A list of all orders.
         """
         pass
+
+
+class OrderService(ABC):
+    @abstractmethod
+    async def create_order(self, order: Order) -> Order:
+        raise NotImplementedError
+
+    @abstractmethod
+    async def list_orders(self) -> list[Order]:
+        raise NotImplementedError

@@ -1,5 +1,5 @@
 run:
-	pdm run python -m app.main
+	pdm run python -m adapters.handlers.rest.app
 
 lint:
 	pdm run ruff check

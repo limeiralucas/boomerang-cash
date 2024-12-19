@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
 
-from app.domain.models.reseller import Reseller
+from core.models.reseller import Reseller
 
 
-class ResellerPort(ABC):
+class ResellerRepository(ABC):
     """Abstract base class that defines the interface for reseller operations."""
 
     @abstractmethod
@@ -29,3 +29,13 @@ class ResellerPort(ABC):
             Reseller: The reseller with the specified email address.
         """
         pass
+
+
+class ResellerService(ABC):
+    @abstractmethod
+    async def create_reseller(self, reseller: Reseller) -> Reseller:
+        raise NotImplementedError
+
+    @abstractmethod
+    async def get_reseller_by_email(self, email: str) -> Reseller:
+        raise NotImplementedError

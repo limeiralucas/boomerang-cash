@@ -26,7 +26,7 @@ async def setup_mongo_db(
     await init_beanie(
         db,
         document_models=[
-            "app.adapters.repositories.order.OrderDocument",
+            "adapters.storage.mongo.repositories.order.OrderDocument",
         ],
     )
 

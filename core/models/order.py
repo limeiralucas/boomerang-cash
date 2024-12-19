@@ -2,7 +2,7 @@ from enum import Enum
 from pydantic import BaseModel, ConfigDict
 from pydantic_br import CPFDigits
 
-from app.domain.models.mixins import TimestampMixin
+from core.models.mixins import TimestampMixin
 
 
 class OrderStatus(Enum):
