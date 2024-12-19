@@ -6,6 +6,7 @@ from adapters.settings import get_settings
 from adapters.storage.mongo.repositories.order import OrderRepository
 from adapters.storage.mongo.repositories.reseller import ResellerRepository
 from core.services.auth import AuthService
+from core.services.cashback import CashbackService
 from core.services.order import OrderService
 from core.services.reseller import ResellerService
 
@@ -34,8 +35,14 @@ class Container(containers.DeclarativeContainer):
         db_name=settings.DATABASE_NAME,
     )
 
+    cashback_service = providers.Factory(CashbackService)
+
     order_repository = providers.Factory(OrderRepository)
-    order_service = providers.Factory(OrderService, order_repository=order_repository)
+    order_service = providers.Factory(
+        OrderService,
+        order_repository=order_repository,
+        cashback_service=cashback_service,
+    )
 
     reseller_repository = providers.Factory(ResellerRepository)
     reseller_service = providers.Factory(
