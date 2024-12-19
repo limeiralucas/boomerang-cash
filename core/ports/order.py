@@ -1,6 +1,14 @@
 from abc import ABC, abstractmethod
 
-from core.models.order import Order
+from pydantic import BaseModel
+from pydantic_br import CPFDigits
+
+from core.models.order import Order, OrderStatus
+
+
+class OrderFilters(BaseModel):
+    reseller_cpf: CPFDigits | None = None
+    status: OrderStatus | None = None
 
 
 class OrderRepository(ABC):
@@ -19,7 +27,7 @@ class OrderRepository(ABC):
         pass
 
     @abstractmethod
-    async def list_orders(self) -> list[Order]:
+    async def list_orders(self, filters: OrderFilters | None = None) -> list[Order]:
         """Lists all orders.
 
         Returns:
@@ -34,5 +42,5 @@ class OrderService(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def list_orders(self) -> list[Order]:
+    async def list_orders(self, filters: OrderFilters | None = None) -> list[Order]:
         raise NotImplementedError

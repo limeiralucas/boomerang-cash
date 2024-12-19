@@ -1,6 +1,6 @@
 from typing import override
 from core.models.order import Order, OrderStatus
-from core.ports.order import OrderRepository
+from core.ports.order import OrderFilters, OrderRepository
 from core.ports.order import OrderService as IOrderService
 from core.services.constants import GOD_RESELLER_CPF
 
@@ -17,5 +17,5 @@ class OrderService(IOrderService):
         return await self.order_repository.create_order(order)
 
     @override
-    async def list_orders(self) -> list[Order]:
-        return await self.order_repository.list_orders()
+    async def list_orders(self, filters: OrderFilters | None = None) -> list[Order]:
+        return await self.order_repository.list_orders(filters)

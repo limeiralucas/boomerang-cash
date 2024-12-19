@@ -4,9 +4,11 @@ from core.models.utils import ExcludedField
 from core.models.order import Order
 
 
-class OrderCreate(Order):
+class OrderCreateRequest(Order):
+    reseller_cpf: ExcludedField
     created_at: ExcludedField
     updated_at: ExcludedField
+    status: ExcludedField
 
     model_config = ConfigDict(
         json_schema_extra={
@@ -14,8 +16,6 @@ class OrderCreate(Order):
                 {
                     "code": "ORD123456",
                     "value": 1000,
-                    "reseller_cpf": "00000000000",
-                    "status": "VALIDATING",
                 }
             ]
         }
