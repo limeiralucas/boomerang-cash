@@ -1,4 +1,6 @@
 from beanie import Document
+from passlib.context import CryptContext
+
 from core.models.reseller import Reseller
 from core.ports.reseller import ResellerRepository as IResellerRepository
 
@@ -13,8 +15,15 @@ class ResellerDocument(Document, Reseller):
 
 
 class ResellerRepository(IResellerRepository):
+    @staticmethod
+    def hash_password(password: str) -> str:
+        return CryptContext(schemes=["bcrypt"], deprecated="auto").hash(password)
+
     async def create_reseller(self, reseller: Reseller) -> Reseller:
-        return await ResellerDocument.insert_one(ResellerDocument.from_entity(reseller))
+        reseller_obj = ResellerDocument.from_entity(reseller)
+        reseller_obj.password = ResellerRepository.hash_password(reseller_obj.password)
+
+        return await ResellerDocument.insert_one(reseller_obj)
 
     async def get_reseller_by_email(self, email: str) -> Reseller:
         return await ResellerDocument.find_one({"email": email})
