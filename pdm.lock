@@ -5,7 +5,7 @@
 groups = ["default", "dev"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:a609104334b4953bbb55c574d7383792222c0f189eca7036d63c95c7432c9463"
+content_hash = "sha256:a1cc07581bc02f18871eae02282899282cbfe4896527554463dc63b5ae7158d7"
 
 [[metadata.targets]]
 requires_python = "==3.12.*"
@@ -241,6 +241,21 @@ name = "passlib"
 version = "1.7.4"
 summary = "comprehensive password hashing framework supporting over 30 schemes"
 groups = ["default"]
+files = [
+    {file = "passlib-1.7.4-py2.py3-none-any.whl", hash = "sha256:aa6bca462b8d8bda89c70b382f0c298a20b5560af6cbfa2dce410c0a2fb669f1"},
+    {file = "passlib-1.7.4.tar.gz", hash = "sha256:defd50f72b65c5402ab2c573830a6978e5f202ad0d984793c8dde2c4152ebe04"},
+]
+
+[[package]]
+name = "passlib"
+version = "1.7.4"
+extras = ["bcrypt"]
+summary = "comprehensive password hashing framework supporting over 30 schemes"
+groups = ["default"]
+dependencies = [
+    "bcrypt>=3.1.0",
+    "passlib==1.7.4",
+]
 files = [
     {file = "passlib-1.7.4-py2.py3-none-any.whl", hash = "sha256:aa6bca462b8d8bda89c70b382f0c298a20b5560af6cbfa2dce410c0a2fb669f1"},
     {file = "passlib-1.7.4.tar.gz", hash = "sha256:defd50f72b65c5402ab2c573830a6978e5f202ad0d984793c8dde2c4152ebe04"},
