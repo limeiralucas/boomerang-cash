@@ -24,7 +24,7 @@ class OrderRepository(ABC):
         Returns:
             Order: The created order.
         """
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     async def list_orders(self, filters: OrderFilters | None = None) -> list[Order]:
@@ -33,7 +33,13 @@ class OrderRepository(ABC):
         Returns:
             list[Order]: A list of all orders.
         """
-        pass
+        raise NotImplementedError
+
+    @abstractmethod
+    async def list_orders_from_month(
+        self, month: int, year: int, filters: OrderFilters
+    ) -> list[Order]:
+        raise NotImplementedError
 
 
 class OrderService(ABC):

@@ -1,3 +1,5 @@
+from dateutil.relativedelta import relativedelta
+from datetime import datetime
 from typing import override
 from beanie import Document
 from core.models.order import Order
@@ -23,6 +25,23 @@ class OrderRepository(IOrderRepository):
         if not filters:
             return await OrderDocument.find_all().to_list()
 
-        print(filters.model_dump(exclude_none=True))
-
         return await OrderDocument.find(filters.model_dump(exclude_none=True)).to_list()
+
+    @override
+    async def list_orders_from_month(
+        self, month: int, year: int, filters: OrderFilters | None = None
+    ) -> list[Order]:
+        start_at = datetime(year, month, 1)
+        end_at = start_at + relativedelta(months=1)
+
+        query = filters.model_dump(exclude_none=True) if filters else {}
+        query.update(
+            {
+                "created_at": {
+                    "$gte": start_at,
+                    "$lt": end_at,
+                }
+            }
+        )
+
+        return await OrderDocument.find(query).to_list()

@@ -18,18 +18,28 @@ class OrderService(IOrderService):
 
     @override
     async def create_order(self, order: Order) -> Order:
-        if order.reseller_cpf == GOD_RESELLER_CPF:
+        reseller_cpf = order.reseller_cpf
+
+        if reseller_cpf == GOD_RESELLER_CPF:
             order.status = OrderStatus.APPROVED
 
-        now = datetime.now()
-        date_last_month = now - relativedelta(months=-1)
-
-        last_month_cashback = self.cashback_service.get_total_cashback_from_month(
-            month=date_last_month.month, year=date_last_month.year
+        order_filters = OrderFilters(
+            reseller_cpf=reseller_cpf, status=OrderStatus.APPROVED
         )
 
-        used_cashback = self.cashback_service.get_used_cashback_from_month(
-            month=now.month, year=now.year
+        now = datetime.now()
+        date_last_month = now - relativedelta(months=1)
+
+        last_month_cashback = await self.cashback_service.get_total_cashback_from_month(
+            month=date_last_month.month,
+            year=date_last_month.year,
+            order_filters=order_filters,
+        )
+
+        used_cashback = await self.cashback_service.get_used_cashback_from_month(
+            month=now.month,
+            year=now.year,
+            order_filters=order_filters,
         )
 
         available_cashback = last_month_cashback - used_cashback

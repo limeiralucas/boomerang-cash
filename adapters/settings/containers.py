@@ -35,16 +35,21 @@ class Container(containers.DeclarativeContainer):
         db_name=settings.DATABASE_NAME,
     )
 
-    cashback_service = providers.Factory(CashbackService)
-
+    # Repositories
     order_repository = providers.Factory(OrderRepository)
+    reseller_repository = providers.Factory(ResellerRepository)
+
+    # Services
+    cashback_service = providers.Factory(
+        CashbackService, order_repository=order_repository
+    )
+
     order_service = providers.Factory(
         OrderService,
         order_repository=order_repository,
         cashback_service=cashback_service,
     )
 
-    reseller_repository = providers.Factory(ResellerRepository)
     reseller_service = providers.Factory(
         ResellerService, reseller_repository=reseller_repository
     )
