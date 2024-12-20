@@ -12,10 +12,12 @@ from core.ports.auth import InvalidCredentialsException
 from core.services.auth import AuthService
 from core.models.reseller import Reseller
 
+from core.tests.services.constants import VALID_CPFS
+
 
 @register_fixture
 class ResellerFactory(ModelFactory[Reseller]):
-    cpf = "72345581794"
+    cpf = VALID_CPFS[0]
 
 
 @pytest.fixture

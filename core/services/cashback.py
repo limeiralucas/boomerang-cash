@@ -9,11 +9,11 @@ class CashbackService(ICashbackService):
         self.order_repository = order_repository
 
     def get_cashback_percentage(self, value: int) -> int:
-        if value < 1000:
+        if value < 1000_00:
             return 10
-        elif value >= 1000 and value < 1500:
+        elif value >= 1000_00 and value < 1500_00:
             return 15
-        elif value >= 1500:
+        elif value >= 1500_00:
             return 20
 
         return 0
