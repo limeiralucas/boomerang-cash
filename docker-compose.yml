@@ -1,0 +1,29 @@
+services:
+  app:
+    build: .
+    container_name: boomerang_cash
+    ports:
+      - "8000:8000"
+    environment:
+      PORT: 8000
+      APP_SECRET_KEY: my_secret_key
+      MONGO_CONN_STR: mongodb://db_username:db_pwd@mongo:27017/
+    env_file:
+      - .env
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    restart: always
+    container_name: boomerang_cash_db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: db_username
+      MONGO_INITDB_ROOT_PASSWORD: db_pwd
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
