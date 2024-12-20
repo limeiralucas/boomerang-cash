@@ -14,6 +14,10 @@ class Settings(BaseSettings):
 
     APP_NAME: str = "Boomerang Cash"
     DATABASE_NAME: str = "boomerang_cash"
+    BOTICARIO_API_BASE_URL: str = (
+        "https://mdaqk8ek5j.execute-api.us-east-1.amazonaws.com"
+    )
+    BOTICARIO_API_TOKEN: str
     MONGO_CONN_STR: str
     SECRET_KEY: str
     TOKEN_EXPIRATION_SECONDS: int
