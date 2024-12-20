@@ -4,4 +4,4 @@ from pydantic import BaseModel
 
 class TokenData(BaseModel):
     sub: str
-    exp: datetime | None
+    exp: datetime | None = None

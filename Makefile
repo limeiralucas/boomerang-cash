@@ -3,3 +3,6 @@ run:
 
 lint:
 	pdm run ruff check
+
+test:
+	pdm run pytest

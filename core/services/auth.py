@@ -5,13 +5,11 @@ from passlib.context import CryptContext
 
 from core.models.auth import TokenData
 
-from core.ports.reseller import ResellerRepository
 from core.ports.auth import AuthService as IAuthService, InvalidCredentialsException
 
 
 class AuthService(IAuthService):
-    def __init__(self, reseller_repository: ResellerRepository):
-        self.reseller_repository = reseller_repository
+    def __init__(self):
         self.pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
     @override
@@ -24,6 +22,8 @@ class AuthService(IAuthService):
 
         if not is_valid:
             raise InvalidCredentialsException()
+
+        return is_valid
 
     @override
     def create_access_token(

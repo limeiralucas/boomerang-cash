@@ -54,6 +54,4 @@ class Container(containers.DeclarativeContainer):
         ResellerService, reseller_repository=reseller_repository
     )
 
-    auth_service = providers.Factory(
-        AuthService, reseller_repository=reseller_repository
-    )
+    auth_service = providers.Factory(AuthService)
