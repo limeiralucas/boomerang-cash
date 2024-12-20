@@ -47,7 +47,7 @@ class OrderService(IOrderService):
         if available_cashback > 0:
             order.cashback_value = min(order.value, available_cashback)
             order.cashback_percentage = trunc(
-                (order.cashback_value / available_cashback) * 100
+                (order.cashback_value / last_month_cashback) * 100
             )
 
         return await self.order_repository.create_order(order)
