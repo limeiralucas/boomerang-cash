@@ -41,6 +41,12 @@ or
 make run
 ```
 
+After that, the project should be available at [http://localhost:8000/](http://localhost:8000/)
+
+## Live documentation
+
+The application contains a live documentation using Swagger UI that can be accessed at [http://localhost:8000/docs](http://localhost:8000/docs)
+
 ## Test
 
 To run the tests:
