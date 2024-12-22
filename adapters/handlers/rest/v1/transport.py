@@ -9,6 +9,8 @@ class OrderCreateRequest(Order):
     created_at: ExcludedField
     updated_at: ExcludedField
     status: ExcludedField
+    cashback_value: ExcludedField
+    cashback_percentage: ExcludedField
 
     model_config = ConfigDict(
         json_schema_extra={
