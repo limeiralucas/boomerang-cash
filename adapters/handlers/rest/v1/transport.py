@@ -6,11 +6,11 @@ from core.models.order import Order
 
 class OrderCreateRequest(Order):
     reseller_cpf: ExcludedField
-    created_at: ExcludedField
-    updated_at: ExcludedField
-    status: ExcludedField
-    cashback_value: ExcludedField
-    cashback_percentage: ExcludedField
+    created_at: ExcludedField = None
+    updated_at: ExcludedField = None
+    status: ExcludedField = None
+    cashback_value: ExcludedField = None
+    cashback_percentage: ExcludedField = None
 
     model_config = ConfigDict(
         json_schema_extra={
@@ -25,8 +25,8 @@ class OrderCreateRequest(Order):
 
 
 class ResellerCreate(Reseller):
-    created_at: ExcludedField
-    updated_at: ExcludedField
+    created_at: ExcludedField = None
+    updated_at: ExcludedField = None
 
     model_config = ConfigDict(
         json_schema_extra={
